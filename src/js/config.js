@@ -14,6 +14,8 @@ export default {
     cactiSpawnRate: 50, // fpa
     cloudSpawnRate: 200, // fpa
     cloudSpeed: 2, // ppf
+    meteorSpawnRate: 200, // fpa
+    meteorSpeed: 2, // ppf
     dinoGravity: 0.5, // ppf
     dinoLegsRate: 10, // fpa
     dinoLift: 11, // ppf
@@ -27,6 +29,7 @@ export default {
     cactusDoubleB: { h: 104, w: 89, x: 618, y: 0 },
     cactusTriple: { h: 62, w: 158, x: 322, y: 0 },
     cloud: { h: 51, w: 125, x: 957, y: 0 },
+    meteor: { h: 106, w: 145, x: 1416, y: 0 },
     dino: { h: 140, w: 107, x: 0, y: 0 },
     dinoDuckLeftLeg: { h:90, w: 162, x: 1083, y: 0 },
     dinoDuckRightLeg: { h: 92, w: 162, x: 1245, y: 0 },

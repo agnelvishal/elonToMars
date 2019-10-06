@@ -1,9 +1,12 @@
 import Bird from './actors/Bird.js'
 import Cactus from './actors/Cactus.js'
 import Cloud from './actors/Cloud.js'
+import Meteor from './actors/Meteor.js'
 import config from './config.js'
 import Dino from './actors/Dino.js'
 import { randBoolean } from './utils.js'
+import celerx from "./celerx";
+import seed from "seed-random";
 
 import P5 from 'p5'
 
@@ -28,6 +31,7 @@ new P5(p5 => {
     birds: [],
     cacti: [],
     clouds: [],
+    meteors: [],
     dino: null,
     gameOver: false,
     groundX: 0,
@@ -57,6 +61,11 @@ new P5(p5 => {
   }, 1000)
 
   function resetGame () {
+
+    var match = celerx.getMatch();
+seed(match && match.sharedRandomSeed, { global: true });
+celerx.start();
+
     Object.assign(STATE, {
       birds: [],
       cacti: [],
@@ -72,6 +81,8 @@ new P5(p5 => {
   }
 
   function endGame () {
+    celerx.submitScore(STATE.score);
+
     const padding = 15
     p5.fill('#535353')
     p5.textAlign(p5.CENTER)
@@ -150,6 +161,27 @@ new P5(p5 => {
 
     if (p5.frameCount % config.settings.cloudSpawnRate === 0) {
       clouds.push(new Cloud(p5.width))
+    }
+  }
+
+  function drawMeteors () {
+    const { meteors } = STATE
+
+    for (let i = meteors.length - 1; i >= 0; i--) {
+      const meteor = meteors[i]
+
+      meteor.nextFrame()
+
+      if (meteor.x <= -meteor.width) {
+        // remove if off screen
+        meteors.splice(i, 1)
+      } else {
+        spriteImage(meteor.sprite, meteor.x, meteor.y)
+      }
+    }
+
+    if (p5.frameCount % config.settings.meteorSpawnRate === 0) {
+      meteors.push(new Meteor(p5.width,p5.height))
     }
   }
 
@@ -241,13 +273,13 @@ new P5(p5 => {
 
     this.tap = function(){
         this.f = 'rgba(255,255,255,.2)'
-        jumpSoundEffect.play();
+    //    jumpSoundEffect.play();
 
 
     }
     this.tapRelease = function(){
       this.f = 'rgba(0,0,0,.2)'
-      jumpSoundEffect.stop();
+      //jumpSoundEffect.stop();
     }
 
   }
@@ -275,8 +307,8 @@ new P5(p5 => {
   p5.preload = () => {
     PressStartFont = p5.loadFont(font)
     sprite = p5.loadImage(spriteImg)
-    p5.soundFormats('mp3', 'ogg');
-    jumpSoundEffect = p5.loadSound(jumpSound);
+    //p5.soundFormats('mp3', 'ogg');
+//    jumpSoundEffect = p5.loadSound(jumpSound);
 
   }
 
@@ -308,6 +340,8 @@ new P5(p5 => {
     p5.background('black')
     drawGround()
     drawClouds()
+    drawMeteors()
+
     drawCacti()
 
     drawDino()
