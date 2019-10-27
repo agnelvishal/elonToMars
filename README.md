@@ -11,4 +11,4 @@ Note: It might be possible that Elon Musk is an origin of Planet Mars.
 
 # To Play the game.
 1. Download CelerX app at https://celerx.app
-2. In CelerX app, scan the QR code at 
+2. In CelerX app, scan the QR code at https://raw.githubusercontent.com/agnelvishal/elonToMars/master/src/assets/qrcode.png
