@@ -8,15 +8,15 @@ export default class Meteor extends Actor {
     super()
 
     this.sprite = 'meteor'
-    this.speedMod = randInteger(6, 14) / 10
-    // this.x = randInteger(20, 80)
-    // this.y = randInteger(20, 80)
-    this.x = random()
-    this.y = random()
+    this.speedMod = randInteger(5, 55) / 10
+     this.x = randInteger(200, 800)
+     this.y = randInteger(60, 80)
+    //this.x = random()
+    //this.y = random()
   }
 
   nextFrame () {
     this.x -= config.settings.meteorSpeed * this.speedMod
-    this.y += config.settings.meteorSpeed * this.speedMod
+    this.y += (config.settings.meteorSpeed * this.speedMod) + randInteger(1, 6)     
   }
 }

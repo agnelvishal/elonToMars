@@ -19,16 +19,23 @@ export default {
     dinoGravity: 0.5, // ppf
     dinoLegsRate: 10, // fpa
     dinoLift: 11, // ppf
-    scoreIncreaseRate: 6 // fpa
+    scoreIncreaseRate: 6, // fpa
+    earthSpawnRate: 200, // fpa
+    earthspeed: 2, // fpa
+    marsSpawnRate: 2, // fpa
+    marsspeed: 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000002, // fpa
+
+
+
   },
   sprites: {
     birdUp: { h: 63, w: 125, x: 707, y: 0 },
     birdDown: { h: 70, w: 125, x: 832, y: 0 },
     cactus: { h: 104, w: 44, x: 480, y: 0 },
-    cactusDouble: { h: 82, w: 93, x: 524, y: 0 },
-    cactusDoubleB: { h: 104, w: 89, x: 618, y: 0 },
+    cactusDouble: { h: 146, w: 93, x: 524, y: 0 },
+    cactusDoubleB: { h: 86, w: 300, x: 1901 , y: 1 },
     cactusTriple: { h: 62, w: 158, x: 322, y: 0 },
-    cloud: { h: 51, w: 125, x: 957, y: 0 },
+    cloud: { h: 100, w: 100, x: 957, y: 0 },
     meteor: { h: 106, w: 145, x: 1416, y: 0 },
     dino: { h: 140, w: 107, x: 0, y: 0 },
     dinoDuckLeftLeg: { h:90, w: 162, x: 1083, y: 0 },
@@ -36,6 +43,10 @@ export default {
     dinoLeftLeg: { h: 140, w: 107, x: 107, y: 0 },
     dinoRightLeg: { h: 140, w: 107, x: 214, y: 0 },
     ground: { h: 320, w: 2400, x: 0, y: 139 },
+    earth: { h: 150, w: 156, x: 1576, y: 0 },
+    mars: { h: 150, w: 141, x: 1762, y: 0 },
+
+
   },
   controls: {
     buttonRadius:56,

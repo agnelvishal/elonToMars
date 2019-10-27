@@ -12,7 +12,7 @@ import P5 from 'p5'
 
 import font from '../assets/Montserrat-Bold.ttf'
 import spriteImg from '../assets/sprite.png'
-import jumpSound from '../assets/jumpsounds.mp3'
+//import jumpSound from '../assets/jumpsounds.mp3'
 
 // import '../css/style.css'
 // const { p5: P5 } = window
@@ -36,6 +36,10 @@ new P5(p5 => {
     gameOver: false,
     groundX: 0,
     groundY: 0,
+    earthX: 0,
+    earthY: 0,
+    marsX: 1000,
+    marsY: 0,
     isRunning: false,
     level: 0,
     score: 0
@@ -130,7 +134,7 @@ celerx.start();
     const { bgSpeed } = config.settings
     const groundImgWidth = config.sprites.ground.w / 2
 
-    spriteImage('ground', STATE.groundX, STATE.groundY)
+    spriteImage('ground', STATE.X, STATE.groundY)
     STATE.groundX -= bgSpeed
 
     // append second image until first is fully translated
@@ -139,6 +143,38 @@ celerx.start();
 
       if (STATE.groundX <= -groundImgWidth) {
         STATE.groundX = -bgSpeed
+      }
+    }
+  }
+  function drawEarth () {
+    const { bgSpeed } = config.settings
+    const earthImgWidth = config.sprites.earth.w / 2
+
+    spriteImage('earth', STATE.earthX, STATE.earthY)
+    STATE.earthX -= bgSpeed
+
+    // append second image until first is fully translated
+    if (STATE.earthX <= -earthImgWidth + p5.width) {
+      spriteImage('earth', (STATE.earthX + earthImgWidth), STATE.earthY)
+
+      if (STATE.earthX <= -earthImgWidth) {
+        STATE.earthX = -bgSpeed
+      }
+    }
+  }
+  function drawMars () {
+    const { bgSpeed } = config.settings
+    const marsImgWidth = config.sprites.mars.w / 2
+
+    //spriteImage('mars', STATE.marsX, STATE.marsY)
+    STATE.marsX -= bgSpeed/100
+
+    // append second image until first is fully translated
+    if (STATE.marsX <= -marsImgWidth + p5.width) {
+      spriteImage('mars', (STATE.marsX + marsImgWidth), STATE.marsY)
+
+      if (STATE.marsX <= -marsImgWidth) {
+        STATE.marsX = -bgSpeed
       }
     }
   }
@@ -292,14 +328,14 @@ celerx.start();
     this.f = 'rgba(0,0,0,.2)'
 
     this.display = function(){
-        p5.strokeWeight(2);
-        p5.stroke('#ffff');
-        p5.fill(this.f)
+        // p5.strokeWeight(2);
+        // p5.stroke('#ffff');
+        // p5.fill(this.f)
 
-        p5.ellipse(this.x, this.y, this.r, this.r);
-        p5.line(this.x, this.y-14, this.x, this.y+14);
-        p5.line(this.x, this.y+14, this.x+15, this.y);
-        p5.line(this.x, this.y+14, this.x-15, this.y);
+        // p5.ellipse(this.x, this.y, this.r, this.r);
+        // p5.line(this.x, this.y-14, this.x, this.y+14);
+        // p5.line(this.x, this.y+14, this.x+15, this.y);
+        // p5.line(this.x, this.y+14, this.x-15, this.y);
     }
   }
 
@@ -316,8 +352,13 @@ celerx.start();
   p5.setup = () => {
     const canvas = p5.createCanvas(p5.windowWidth, p5.windowHeight)
 
-    STATE.groundY = p5.height - config.sprites.ground.h / 2
+    STATE.groundY = p5.height- config.sprites.ground.h / 2 
+    
+    STATE.earthY = p5.height - config.sprites.earth.h / 2
+    STATE.marsY = p5.height - config.sprites.mars.h / 2
+
     p5.noLoop()
+    
 
     // canvas.mouseClicked(() => {
     //   if (STATE.gameOver) {
@@ -339,6 +380,8 @@ celerx.start();
 
     p5.background('black')
     drawGround()
+    drawEarth()
+    drawMars()
     drawClouds()
     drawMeteors()
 
@@ -372,7 +415,7 @@ celerx.start();
       let d_jumpBtn = p5.dist(p5.mouseX, p5.mouseY,p5.windowWidth-config.controls.jumpBtnX, p5.windowHeight-config.controls.jumpBtnY)
       let d_crouchBtn = p5.dist(p5.mouseX, p5.mouseY,p5.windowWidth-config.controls.crouchBtnX, p5.windowHeight-config.controls.crouchBtnY)
 
-      if(d_jumpBtn<config.controls.buttonRadius){
+      if(d_jumpBtn<config.controls.buttonRadius+10000){
 
         if (STATE.isRunning) {
           STATE.dino.jump()
